@@ -18,19 +18,19 @@ window.onload = async () => {
                 // If the same chain id is already registered, it will resolve and not require the user interactions.
                 await window.keplr.experimentalSuggestChain({
                     // Chain-id of the Cosmos SDK chain.
-                    chainId: "cosmoshub-3",
+                    chainId: "uniswap",
                     // The name of the chain to be displayed to the user.
-                    chainName: "Cosmos",
+                    chainName: "uniswap",
                     // RPC endpoint of the chain.
-                    rpc: "https://node-cosmoshub-3.keplr.app/rpc",
+                    rpc: "http://0.0.0.0:26657",
                     // REST endpoint of the chain.
-                    rest: "https://node-cosmoshub-3.keplr.app/rest",
+                    rest: "http://0.0.0.0:1317",
                     // Staking coin information
                     stakeCurrency: {
                         // Coin denomination to be displayed to the user.
-                        coinDenom: "ATOM",
+                        coinDenom: "token",
                         // Actual denom (i.e. uatom, uscrt) used by the blockchain.
-                        coinMinimalDenom: "uatom",
+                        coinMinimalDenom: "utoken",
                         // # of decimal points to convert minimal denomination to user-facing denomination.
                         coinDecimals: 6,
                         // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -67,9 +67,9 @@ window.onload = async () => {
                     // List of all coin/tokens used in this chain.
                     currencies: [{
                         // Coin denomination to be displayed to the user.
-                        coinDenom: "ATOM",
+                        coinDenom: "token",
                         // Actual denom (i.e. uatom, uscrt) used by the blockchain.
-                        coinMinimalDenom: "uatom",
+                        coinMinimalDenom: "utoken",
                         // # of decimal points to convert minimal denomination to user-facing denomination.
                         coinDecimals: 6,
                         // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -79,9 +79,9 @@ window.onload = async () => {
                     // List of coin/tokens used as a fee token in this chain.
                     feeCurrencies: [{
                         // Coin denomination to be displayed to the user.
-                        coinDenom: "ATOM",
+                        coinDenom: "token",
                         // Actual denom (i.e. uatom, uscrt) used by the blockchain.
-                        coinMinimalDenom: "uatom",
+                        coinMinimalDenom: "utoken",
                         // # of decimal points to convert minimal denomination to user-facing denomination.
                         coinDecimals: 6,
                         // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -112,7 +112,7 @@ window.onload = async () => {
         }
     }
 
-    const chainId = "cosmoshub-3";
+    const chainId = "uniswap";
 
     // You should request Keplr to enable the wallet.
     // This method will ask the user whether or not to allow access if they haven't visited this website.
@@ -130,7 +130,7 @@ window.onload = async () => {
 
     // Initialize the gaia api with the offline signer that is injected by Keplr extension.
     const cosmJS = new SigningCosmosClient(
-        "https://node-cosmoshub-3.keplr.app/rest",
+        "http://0.0.0.0:1317",
         accounts[0].address,
         offlineSigner,
     );
@@ -153,7 +153,7 @@ document.sendForm.onsubmit = () => {
 
     (async () => {
         // See above.
-        const chainId = "cosmoshub-3";
+        const chainId = "uniswap";
         await window.keplr.enable(chainId);
         const offlineSigner = window.getOfflineSigner(chainId);
 
@@ -161,13 +161,13 @@ document.sendForm.onsubmit = () => {
 
         // Initialize the gaia api with the offline signer that is injected by Keplr extension.
         const cosmJS = new SigningCosmosClient(
-            "https://node-cosmoshub-3.keplr.app/rest",
+            "http://0.0.0.0:1317",
             accounts[0].address,
             offlineSigner
         );
 
         const result = await cosmJS.sendTokens(recipient, [{
-            denom: "uatom",
+            denom: "utoken",
             amount: amount.toString(),
         }]);
 
